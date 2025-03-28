@@ -83,6 +83,17 @@ mixin PBXTargetMixin on PBXElement {
 
     return isRemoved;
   }
+
+  void addFramework(String path, String sourceTree) {
+    var frameworks = project.groups.where((group) => group.name == 'Frameworks').single;
+
+    var reference = frameworks.children.where((file) => file.path == path);
+    if (reference.isEmpty) {
+      var file = frameworks.addReference(path, sourceTree: sourceTree);
+      var phase = buildPhases.where((phase) => phase.runtimeType == PBXFrameworksBuildPhase).single as PBXFrameworksBuildPhase;
+      phase.linkBinaryWithFile(file);
+    }
+  }
 }
 
 abstract class PBXTarget = PBXElement with PBXTargetMixin;

@@ -92,14 +92,14 @@ mixin PBXGroupMixin on PBXFileElement {
     return isRemoved;
   }
 
-  PBXFileReference? addReference(String path, {String sourceTree = '<group>', String? name}) {
+  PBXFileReference addReference(String path, {String sourceTree = '<group>', String? name}) {
     var uuid = UuidGenerator().random();
+    name = name ?? path_lib.basename(path);
 
-    project.set('objects/$uuid',
-        {'isa': 'PBXFileReference', 'path': path, 'name': name ?? path, 'sourceTree': sourceTree});
+    project.set('objects/$uuid', {'isa': 'PBXFileReference', 'path': path, 'name': name, 'sourceTree': sourceTree});
     project.set('$_path/children', [...getList('children'), uuid]);
 
-    return project.getObject(uuid) as PBXFileReference?;
+    return project.getObject(uuid) as PBXFileReference;
   }
 }
 

@@ -24,7 +24,13 @@ mixin PBXCopyFilesBuildPhaseMixin on PBXBuildPhaseMixin {
 /// Element for the copy file build phase.
 class PBXCopyFilesBuildPhase = PBXBuildPhase with PBXCopyFilesBuildPhaseMixin;
 
-mixin PBXFrameworksBuildPhaseMixin on PBXBuildPhaseMixin {}
+mixin PBXFrameworksBuildPhaseMixin on PBXBuildPhaseMixin {
+  void linkBinaryWithFile(PBXFileReference file) {
+    var uuid = UuidGenerator().random();
+    project.set('objects/$uuid', {'isa': 'PBXBuildFile', 'fileRef': file.uuid});
+    project.set('$_path/files', [...getList('files'), uuid]);
+  }
+}
 
 /// Element for the framework link build phase.
 class PBXFrameworksBuildPhase = PBXBuildPhase with PBXFrameworksBuildPhaseMixin;
