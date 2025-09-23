@@ -65,7 +65,7 @@ mixin PBXTargetMixin on PBXElement {
     final buildPhasesListString = [...getList('buildPhases')];
 
     // list uuid which is the same as 'name' parameter
-    final uuidToDeleted = buildPhases.whereType<PBXShellScriptBuildPhase>().where((element) => element.name == name).map((e) => e.uuid);
+    final uuidToDeleted = buildPhases.whereType<PBXShellScriptBuildPhase>().where((element) => element.name == name).map((e) => e.uuid).toList();
 
     if (uuidToDeleted.isNotEmpty) {
       isRemoved = true;
