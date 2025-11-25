@@ -1,4 +1,4 @@
-part of xcodeproj.xcscheme;
+part of '../scheme.dart';
 
 class XCScheme extends XmlElementWrapper {
   String _path;
@@ -95,7 +95,7 @@ class XCScheme extends XmlElementWrapper {
 }
 
 abstract class SchemeAction extends XmlElementWrapper {
-  SchemeAction(XmlElement element) : super(element);
+  SchemeAction(super.element);
 
   /// The build configuration associated with this action (usually either 'Debug' or 'Release').
   String? get buildConfiguration => get('buildConfiguration');

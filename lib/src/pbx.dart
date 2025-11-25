@@ -1,4 +1,4 @@
-library pbx;
+library;
 
 import 'dart:collection';
 
@@ -46,11 +46,11 @@ extension ChildSnapshotViewX on ChildSnapshotView {
   T get<T>(String path, {String? format}) =>
       _snapshot.child(path).as(format: format);
 
-  /// Gets and converts the value at [path] to type List<T>
+  /// Gets and converts the value at [path] to type List&lt;T&gt;
   List<T> getList<T>(String path, {String? format}) =>
       _snapshot.child(path).asList(format: format)!;
 
-  /// Gets and converts the value at [path] to type Map<String,T>
+  /// Gets and converts the value at [path] to type Map&lt;String,T&gt;
   Map<String, T> getMap<T>(String path, {String? format}) =>
       ChildSnapshotMapView(_rootSnapshotView, '$_path/$path');
 }
@@ -59,9 +59,7 @@ class ChildSnapshotMapView<T> extends ChildSnapshotView
     with MapMixin<String, T> {
   final String? format;
 
-  ChildSnapshotMapView(SnapshotView rootSnapshotView, String path,
-      {this.format})
-      : super(rootSnapshotView, path);
+  ChildSnapshotMapView(super.rootSnapshotView, super.path, {this.format});
 
   @override
   T? operator [](Object? key) =>
@@ -79,7 +77,7 @@ class ChildSnapshotMapView<T> extends ChildSnapshotView
   @override
   void clear() {
     if (_rootSnapshotView is ModifiableSnapshotView) {
-      (_rootSnapshotView as ModifiableSnapshotView).set('$path', {});
+      (_rootSnapshotView as ModifiableSnapshotView).set(path, {});
     } else {
       throw UnsupportedError('This snapshot view is unmodifiable');
     }
